@@ -1,8 +1,10 @@
 package com.yizhi.student.service.impl;
 
+import com.yizhi.common.utils.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,11 +44,15 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 	
 	@Override
 	public int save(StudentInfoDO studentInfo){
+		studentInfo.setAddTime(new Date());
+		studentInfo.setAddUserid(ShiroUtils.getUser().getUserId().intValue());
 		return studentInfoDao.save(studentInfo);
 	}
 	
 	@Override
 	public int update(StudentInfoDO studentInfo){
+		studentInfo.setEditTime(new Date());
+		studentInfo.setEditUserid(ShiroUtils.getUser().getUserId().intValue());
 		return studentInfoDao.update(studentInfo);
 	}
 	

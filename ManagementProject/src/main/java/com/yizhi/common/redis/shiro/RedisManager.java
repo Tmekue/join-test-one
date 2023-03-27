@@ -30,8 +30,6 @@ public class RedisManager {
     @Value("${spring.redis.timeout}")
     private int timeout = 0;
 
-    @Value("${spring.redis.password}")
-    private String password = "";
 
     private static JedisPool jedisPool = null;
 
@@ -44,9 +42,7 @@ public class RedisManager {
      */
     public void init() {
         if (jedisPool == null) {
-            if (password != null && !"".equals(password)) {
-                jedisPool = new JedisPool(new JedisPoolConfig(), host, port, timeout, password);
-            } else if (timeout != 0) {
+            if (timeout != 0) {
                 jedisPool = new JedisPool(new JedisPoolConfig(), host, port, timeout);
             } else {
                 jedisPool = new JedisPool(new JedisPoolConfig(), host, port);
@@ -168,7 +164,7 @@ public class RedisManager {
     /**
      * keys
      *
-     * @param regex
+     * @param
      * @return
      */
     public Set<byte[]> keys(String pattern) {
@@ -216,13 +212,6 @@ public class RedisManager {
         this.timeout = timeout;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 
 }
